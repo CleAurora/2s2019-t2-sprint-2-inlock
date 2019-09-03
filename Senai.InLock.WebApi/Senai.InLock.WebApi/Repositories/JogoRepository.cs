@@ -1,6 +1,7 @@
 ﻿using Senai.InLock.WebApi.Domains;
 using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -73,6 +74,106 @@ namespace Senai.InLock.WebApi.Repositories
                 ctx.Jogos.Remove(JogoBuscado);
                 ctx.SaveChanges();
             }
+        }
+
+        private string StringConexao = "Data Source=.\\SqlExpress; initial catalog=M_InLock; User Id=sa; Pwd=132";
+
+        List<Jogos> jogos = new List<Jogos>();
+
+        /// <summary>
+        /// Lista os Jogos mais caros
+        /// </summary>
+        /// <returns>Lista de Jogos</returns>
+        /// 
+
+            
+        public List<Jogos> ListarJogosMaisCaros()
+        {
+            string Query = "select Jogos.JogoId, Jogos.NomeJogo, Jogos.Descricao, Jogos.DataLancamento, Jogos.Valor, Estudios.NomeEstudio  from Estudios join Jogos on Jogos.EstudioId = Estudios.EstudioId order by Jogos.Valor desc";
+
+           
+
+
+
+                using (SqlConnection connection = new SqlConnection(StringConexao))
+                {
+                    connection.Open();
+                    SqlDataReader sdr;
+
+                    using (SqlCommand cmd = new SqlCommand(Query, connection))
+                    {
+                        sdr = cmd.ExecuteReader();
+
+                        while (sdr.Read())
+                        {
+                            Jogos jogo = new Jogos
+                            {
+                                JogoId = Convert.ToInt32(sdr["JogoId"]),
+                                NomeJogo = sdr["NomeJogo"].ToString(),
+                                Descricao = sdr["Descricao"].ToString(),
+                                DataLancamento = Convert.ToDateTime(sdr["DataLancamento"]),
+                                Valor = Convert.ToInt32(sdr["Valor"]),
+
+                                Estudio = new Estudios()
+                                {
+                                    NomeEstudio = sdr["NomeEstudio"].ToString()
+
+                                }
+
+                            };
+                        
+                            jogos.Add(jogo);
+                        }
+                    
+                    return jogos;
+
+
+                }
+            }
+        }
+
+
+
+        public Jogos BuscarPorNome(string nomeJogo)
+        {
+            string Query = "select Jogos.JogoId, Jogos.NomeJogo, Jogos.Descricao, Jogos.DataLancamento, Jogos.Valor, Estudio.EstudioId from Jogos where NomeJogo = @nomeJogo";
+
+            using (SqlConnection con = new SqlConnection(StringConexao))
+            {
+                con.Open();
+                SqlDataReader sdr;
+
+                using (SqlCommand cmd = new SqlCommand(Query, con))
+                {
+                    cmd.Parameters.AddWithValue("@nomeJogo", nomeJogo);
+                    sdr = cmd.ExecuteReader();
+
+                    if (sdr.HasRows)
+                    {
+                        while (sdr.Read())
+                        {
+                            Jogos jogo = new Jogos
+                            {
+                                JogoId = Convert.ToInt32(sdr["JogoId"]),
+                                NomeJogo = sdr["NomeJogo"].ToString(),
+                                Descricao = sdr["Descricao"].ToString(),
+                                DataLancamento = Convert.ToDateTime(sdr["NomeJogo"]),
+                                Valor = Convert.ToInt32(sdr["NomeJogo"]),
+
+                                Estudio = new Estudios()
+                                {
+                                   EstudioId = Convert.ToInt32(sdr["EstudioId"])
+
+                                }
+                            };
+                            return jogo;
+                        }
+
+                    }
+                    return null;
+                }
+            }
+
         }
     }
 }

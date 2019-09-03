@@ -123,5 +123,48 @@ namespace Senai.InLock.WebApi.Controllers
             
             
         }
+
+        /// <summary>
+        /// Lista os Jogos mais caros
+        /// </summary>
+        /// <returns>Lista de Jogos</returns>
+        [Authorize]
+        [HttpGet("listarJogosMaisCaros")]
+        public IActionResult ListarJogosMaisCaros()
+        {
+            try
+            {
+
+                return Ok(jogoRepository.ListarJogosMaisCaros());
+
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { mensagem = "Jogo inexistente" + ex.Message });
+            }
+        }
+
+
+        /// <summary>
+        /// Busca um Jogo por Nome
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>Jogo</returns>
+   
+        [HttpGet("nome/{nomeJogo}")]
+        public IActionResult BuscarPorNome(string nomeJogo)
+        {
+            try
+            {
+
+                return Ok(jogoRepository.BuscarPorNome(nomeJogo));
+
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { mensagem = "Jogo inexistente" + ex.Message });
+            }
+
+        }
     }
 }
