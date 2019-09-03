@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
@@ -51,8 +52,10 @@ namespace Senai.InLock.WebApi.Controllers
             try
             {
                 // pega o id do token
-                estudio.UsuarioId = // id que voce pega do token
-                    estudio.DataCriacao = DateTime.Now;
+                int usuarioId = Convert.ToInt32(User.Claims.FirstOrDefault(claim => claim.Type == JwtRegisteredClaimNames.Jti)); 
+                // id que voce pega do token
+                estudio.DataCriacao = DateTime.Now;
+                estudio.UsuarioId = usuarioId;
                 EstudioRepository.Cadastrar(estudio);
                 return Ok();
             }
