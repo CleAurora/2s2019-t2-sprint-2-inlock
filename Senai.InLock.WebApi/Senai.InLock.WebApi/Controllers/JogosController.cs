@@ -22,11 +22,19 @@ namespace Senai.InLock.WebApi.Controllers
         /// </summary>
         /// <returns>Lista de Jogos</returns>
         [Authorize]
-        [Authorize(Roles = "ADMINISTRADOR")]
         [HttpGet]
         public IActionResult Listar()
         {
-            return Ok(jogoRepository.Listar());
+            try
+            {
+
+                jogoRepository.Listar();
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { mensagem = "Jogo inexistente" + ex.Message });
+            }
         }
 
         /// <summary>
@@ -37,8 +45,17 @@ namespace Senai.InLock.WebApi.Controllers
         [HttpPost]
         public IActionResult Cadastrar (Jogos jogo)
         {
-            jogoRepository.Cadastrar(jogo);
-            return Ok();
+            try
+            {
+
+                jogoRepository.Cadastrar(jogo);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { mensagem = "Ocorreu um erro na digitação, confere aí!" + ex.Message });
+            }
+            
         }
 
         /// <summary>
@@ -50,7 +67,17 @@ namespace Senai.InLock.WebApi.Controllers
         [HttpGet("{id}")]
         public IActionResult BuscarPorId(int id)
         {
-            return Ok(jogoRepository.BuscarPorId(id));
+            try
+            {
+
+                jogoRepository.BuscarPorId(id);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { mensagem = "Jogo inexistente" + ex.Message });
+            }
+            
         }
 
         /// <summary>
@@ -62,8 +89,17 @@ namespace Senai.InLock.WebApi.Controllers
         [HttpPut("{id}")]
         public IActionResult Atualizar(Jogos jogo, int id)
         {
-            jogoRepository.Atualizar(jogo, id);
-            return Ok();
+            try
+            {
+
+                jogoRepository.Atualizar(jogo, id);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { mensagem = "Ocorreu um erro na digitação, ou o jogo é inexistente confere aí!" + ex.Message });
+            }
+            
         }
 
         /// <summary>
@@ -74,8 +110,18 @@ namespace Senai.InLock.WebApi.Controllers
         [HttpDelete("{id}")]
         public IActionResult Deletar (int id)
         {
-            jogoRepository.Deletar(id);
-            return Ok();
+            try
+            {
+
+                jogoRepository.Deletar(id); 
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { mensagem = "Jogo inexistente" + ex.Message });
+            }
+            
+            
         }
     }
 }

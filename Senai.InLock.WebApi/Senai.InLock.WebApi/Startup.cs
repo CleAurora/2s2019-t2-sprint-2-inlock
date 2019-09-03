@@ -53,6 +53,12 @@ namespace Senai.InLock.WebApi
                 c.SwaggerDoc("v1", new Swashbuckle.AspNetCore.Swagger.Info { Title = "InLock API", Version = "v1" });
             });
 
+            services.AddCors(options =>
+            {
+                options.AddPolicy("CorsPolicy", builder => builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader().AllowCredentials());
+            });
+
+
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
@@ -61,6 +67,8 @@ namespace Senai.InLock.WebApi
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseCors("CorsPolicy");
 
             // colocar em uso
             app.UseAuthentication();

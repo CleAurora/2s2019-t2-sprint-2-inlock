@@ -26,7 +26,17 @@ namespace Senai.InLock.WebApi.Controllers
         [HttpGet]
         public IActionResult ListarTodos()
         {
-            return Ok(EstudioRepository.Listar());
+            try
+            {
+
+                EstudioRepository.Listar();
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { mensagem = "Ocorreu um erro" + ex.Message });
+            }
+            
         }
 
         /// <summary>
@@ -40,6 +50,9 @@ namespace Senai.InLock.WebApi.Controllers
         {
             try
             {
+                // pega o id do token
+                estudio.UsuarioId = // id que voce pega do token
+                    estudio.DataCriacao = DateTime.Now;
                 EstudioRepository.Cadastrar(estudio);
                 return Ok();
             }
@@ -58,7 +71,17 @@ namespace Senai.InLock.WebApi.Controllers
         [HttpGet("{id}")]
         public IActionResult BuscarPorId(int id)
         {
-            return Ok(EstudioRepository.BuscarPorId(id));
+            try
+            {
+
+                EstudioRepository.BuscarPorId(id);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { mensagem = "Estúdio inexistente" + ex.Message });
+            }
+            
         }
 
         /// <summary>
@@ -70,8 +93,18 @@ namespace Senai.InLock.WebApi.Controllers
         [HttpPut("{id}")]
         public IActionResult Atualizar(Estudios estudio, int id)
         {
-            EstudioRepository.Atualizar(estudio, id);
-            return Ok();
+            try
+            {
+
+                EstudioRepository.Atualizar(estudio, id);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { mensagem = "Ocorreu um erro na digitação, confere aí!" + ex.Message });
+            }
+            
+            
         }
 
         /// <summary>
@@ -82,8 +115,18 @@ namespace Senai.InLock.WebApi.Controllers
         [HttpDelete("{id}")]
         public IActionResult Deletar(int id)
         {
-            EstudioRepository.Deletar(id);
-            return Ok();
+            try
+            {
+
+                EstudioRepository.Deletar(id);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { mensagem = "Estúdio inexistente" + ex.Message });
+            }
+            
+            
         }
 
     }

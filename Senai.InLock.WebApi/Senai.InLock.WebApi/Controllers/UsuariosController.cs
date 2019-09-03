@@ -57,7 +57,6 @@ namespace Senai.InLock.WebApi.Controllers
         /// Deleta um usuário
         /// </summary>
         /// <param name="id"></param>
-        //Deleta um usuário da lista
         [Authorize(Roles = "ADMINISTRADOR")]
         [HttpDelete("{id}")]
         public IActionResult Deletar (int id)
@@ -66,7 +65,6 @@ namespace Senai.InLock.WebApi.Controllers
             return Ok();
         }
 
-        //Busca um usuário da lista pelo id
         [Authorize(Roles = "ADMINISTRADOR")]
         [HttpGet("{id}")]
         public IActionResult BuscarPorId (int id)
