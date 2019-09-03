@@ -16,8 +16,9 @@ namespace Senai.InLock.WebApi.Controllers
     {
         UsuarioRepository usuarioRepository = new UsuarioRepository();
 
-      
+
         //Lista os usuários
+        [Authorize(Roles = "ADMINISTRADOR")]
         [HttpGet]
         public IActionResult Listar()
         {
