@@ -17,8 +17,7 @@ namespace Senai.InLock.WebApi.Controllers
     public class EstudiosController : ControllerBase
     {
         EstudioRepository EstudioRepository = new EstudioRepository();
-
-
+        
         /// <summary>
         /// Lista Estúdios
         /// </summary>
@@ -129,7 +128,6 @@ namespace Senai.InLock.WebApi.Controllers
             {
                 return BadRequest(new { mensagem = "Estúdio inexistente" + ex.Message });
             }
-            
             
         }
 

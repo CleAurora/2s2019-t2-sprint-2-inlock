@@ -9,6 +9,9 @@ namespace Senai.InLock.WebApi.Repositories
 {
     public class JogoRepository
     {
+
+        private string StringConexao = "Data Source=localhost; initial catalog=M_InLock; Integrated Security=true";
+
         /// <summary>
         /// Lista os jogos
         /// </summary>
@@ -76,6 +79,7 @@ namespace Senai.InLock.WebApi.Repositories
             }
         }
 
+<<<<<<< HEAD
         private string StringConexao = "Data Source=.\\SqlExpress; initial catalog=M_InLock; User Id=sa; Pwd=132";
 
         List<Jogos> jogos = new List<Jogos>();
@@ -173,6 +177,47 @@ namespace Senai.InLock.WebApi.Repositories
                     return null;
                 }
             }
+=======
+        /// <summary>
+        /// Lista os jogos com os respectivos Estudios
+        /// </summary>
+        /// <returns>Lista de Jogos</returns>
+        public List<Jogos> ListarJogosEEstudios()
+        {
+            List<Jogos> jogos = new List<Jogos>();
+
+            using (SqlConnection con = new SqlConnection(StringConexao))
+            {
+                string Query = "select Jogos.JogoId, Jogos.NomeJogo, Jogos.Descricao, Jogos.DataLancamento, Jogos.Valor, Estudios.NomeEstudio from Jogos join Estudios on Jogos.EstudioId = Estudios.EstudioId";
+
+                con.Open();
+                SqlDataReader sdr;
+                using (SqlCommand cmd = new SqlCommand(Query, con))
+                {
+                    // executa a query
+                    sdr = cmd.ExecuteReader();
+
+                    while (sdr.Read())
+                    {
+                        Jogos jogo = new Jogos
+                        {
+                            JogoId = Convert.ToInt32(sdr["JogoId"]),
+                            NomeJogo = sdr["Nome"].ToString(),
+                            Estudio = new Estudios
+                            {
+                                EstudioId = Convert.ToInt32(sdr["EstudioId"]),
+                                NomeEstudio = sdr["NomeEstudio"].ToString(),
+                                DataCriacao = Convert.ToDateTime(sdr["DataCriacao"]),
+                                PaisOrigem = sdr["PaisOrigem"].ToString()
+                            }
+                        };
+                        jogos.Add(jogo);
+                    }
+
+                }
+            }
+            return jogos;
+>>>>>>> 3a35aca82002ff730593ed11bda163bb31e74c3d
 
         }
     }

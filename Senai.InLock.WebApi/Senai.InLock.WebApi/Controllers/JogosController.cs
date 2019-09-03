@@ -108,21 +108,20 @@ namespace Senai.InLock.WebApi.Controllers
         /// <param name="id"></param>
         [Authorize(Roles = "ADMINISTRADOR")]
         [HttpDelete("{id}")]
-        public IActionResult Deletar (int id)
+        public IActionResult Deletar(int id)
         {
             try
             {
 
-                jogoRepository.Deletar(id); 
+                jogoRepository.Deletar(id);
                 return Ok();
             }
             catch (Exception ex)
             {
                 return BadRequest(new { mensagem = "Jogo inexistente" + ex.Message });
             }
-            
-            
         }
+<<<<<<< HEAD
 
         /// <summary>
         /// Lista os Jogos mais caros
@@ -166,5 +165,13 @@ namespace Senai.InLock.WebApi.Controllers
             }
 
         }
+=======
+            
+            [HttpGet]
+            public IActionResult ListarJogosEEstudios()
+            {
+                return Ok(jogoRepository.ListarJogosEEstudios());
+            }
+>>>>>>> 3a35aca82002ff730593ed11bda163bb31e74c3d
     }
 }

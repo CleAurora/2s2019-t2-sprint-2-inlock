@@ -6,6 +6,7 @@ select * from Usuarios
 select * from Estudios
 select * from Jogos
 
+select * from jogos where EstudioId = 2;
 
 select Jogos.JogoId, Jogos.NomeJogo, Jogos.Descricao, Jogos.DataLancamento, Jogos.Valor, Estudios.NomeEstudio
 from Jogos
