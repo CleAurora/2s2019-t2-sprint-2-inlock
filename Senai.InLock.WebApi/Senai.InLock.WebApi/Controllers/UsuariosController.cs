@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Senai.InLock.WebApi.Domains;
@@ -24,8 +25,9 @@ namespace Senai.InLock.WebApi.Controllers
         {
             return Ok(usuarioRepository.Listar());
         }
-        
+
         //Cadastra um novo usuário
+        [Authorize(Roles = "ADMINISTRADOR")]
         [HttpPost]
         public IActionResult Cadastrar(Usuarios usuario)
         {
@@ -42,6 +44,7 @@ namespace Senai.InLock.WebApi.Controllers
         }
 
         //Deleta um usuário da lista
+        [Authorize(Roles = "ADMINISTRADOR")]
         [HttpDelete("{id}")]
         public IActionResult Deletar (int id)
         {
@@ -50,6 +53,7 @@ namespace Senai.InLock.WebApi.Controllers
         }
 
         //Busca um usuário da lista pelo id
+        [Authorize(Roles = "ADMINISTRADOR")]
         [HttpGet("{id}")]
         public IActionResult BuscarPorId (int id)
         {
