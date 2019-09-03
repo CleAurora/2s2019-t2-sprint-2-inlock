@@ -50,11 +50,11 @@ namespace Senai.InLock.WebApi.Repositories
         /// Atualiza Estúdio
         /// </summary>
         /// <param name="estudio"></param>
-        public void Atualizar(Estudios estudio)
+        public void Atualizar(Estudios estudio, int id)
         {
             using (InLockContext ctx = new InLockContext())
             {
-                Estudios EstudioBuscado = ctx.Estudios.FirstOrDefault(x => x.EstudioId == estudio.EstudioId);
+                Estudios EstudioBuscado = ctx.Estudios.FirstOrDefault(x => x.EstudioId == id);
 
                 EstudioBuscado.NomeEstudio = estudio.NomeEstudio;
                 ctx.Estudios.Update(EstudioBuscado);

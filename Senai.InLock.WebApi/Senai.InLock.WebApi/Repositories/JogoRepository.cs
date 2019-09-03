@@ -50,11 +50,11 @@ namespace Senai.InLock.WebApi.Repositories
         /// Artualiza jogo
         /// </summary>
         /// <param name="jogo"></param>
-        public void Atualizar(Jogos jogo)
+        public void Atualizar(Jogos jogo, int id)
         {
             using (InLockContext ctx = new InLockContext())
             {
-                Jogos JogoBuscado = ctx.Jogos.FirstOrDefault(x => x.JogoId == jogo.JogoId);
+                Jogos JogoBuscado = ctx.Jogos.FirstOrDefault(x => x.JogoId == id);
                 JogoBuscado.NomeJogo = jogo.NomeJogo;
                 ctx.Update(JogoBuscado);
                 ctx.SaveChanges();
