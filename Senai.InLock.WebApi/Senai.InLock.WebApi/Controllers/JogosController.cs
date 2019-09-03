@@ -108,20 +108,24 @@ namespace Senai.InLock.WebApi.Controllers
         /// <param name="id"></param>
         [Authorize(Roles = "ADMINISTRADOR")]
         [HttpDelete("{id}")]
-        public IActionResult Deletar (int id)
+        public IActionResult Deletar(int id)
         {
             try
             {
 
-                jogoRepository.Deletar(id); 
+                jogoRepository.Deletar(id);
                 return Ok();
             }
             catch (Exception ex)
             {
                 return BadRequest(new { mensagem = "Jogo inexistente" + ex.Message });
             }
-            
-            
         }
+            
+            [HttpGet]
+            public IActionResult ListarJogosEEstudios()
+            {
+                return Ok(jogoRepository.ListarJogosEEstudios());
+            }
     }
 }
