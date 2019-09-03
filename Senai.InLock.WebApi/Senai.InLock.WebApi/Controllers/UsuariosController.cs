@@ -18,7 +18,10 @@ namespace Senai.InLock.WebApi.Controllers
         UsuarioRepository usuarioRepository = new UsuarioRepository();
 
 
-        //Lista os usuários
+        /// <summary>
+        /// Lista Usuários
+        /// </summary>
+        /// <returns>Lista De Usuários</returns>
         [Authorize(Roles = "ADMINISTRADOR")]
         [HttpGet]
         public IActionResult Listar()
@@ -26,7 +29,10 @@ namespace Senai.InLock.WebApi.Controllers
             return Ok(usuarioRepository.Listar());
         }
 
-        //Cadastra um novo usuário
+        /// <summary>
+        /// Cadastra Usuário
+        /// </summary>
+        /// <param name="usuario"></param>
         [Authorize(Roles = "ADMINISTRADOR")]
         [HttpPost]
         public IActionResult Cadastrar(Usuarios usuario)
@@ -34,8 +40,12 @@ namespace Senai.InLock.WebApi.Controllers
             usuarioRepository.Cadastrar(usuario);
             return Ok();
         }
-        
-        //Atualiza um usuário da lista
+
+        /// <summary>
+        /// Atualiza Usuário
+        /// </summary>
+        /// <param name="usuario"></param>
+        /// <param name="id"></param>
         [HttpPut("{id}")]
         public IActionResult Atualizar (Usuarios usuario, int id)
         {
@@ -43,6 +53,10 @@ namespace Senai.InLock.WebApi.Controllers
             return Ok();
         }
 
+        /// <summary>
+        /// Deleta um usuário
+        /// </summary>
+        /// <param name="id"></param>
         //Deleta um usuário da lista
         [Authorize(Roles = "ADMINISTRADOR")]
         [HttpDelete("{id}")]

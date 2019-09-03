@@ -17,15 +17,23 @@ namespace Senai.InLock.WebApi.Controllers
     {
         JogoRepository jogoRepository = new JogoRepository();
 
-        //Lista os jogos
+        /// <summary>
+        /// Lista os Jogos
+        /// </summary>
+        /// <returns>Lista de Jogos</returns>
         [Authorize]
+        [Authorize(Roles = "ADMINISTRADOR")]
         [HttpGet]
         public IActionResult Listar()
         {
             return Ok(jogoRepository.Listar());
         }
 
-        //Cadastra um novo jogo na lista
+        /// <summary>
+        /// Cadastra Novo Jogo
+        /// </summary>
+        /// <param name="jogo"></param>
+        [Authorize(Roles = "ADMINISTRADOR")]
         [HttpPost]
         public IActionResult Cadastrar (Jogos jogo)
         {
@@ -33,14 +41,24 @@ namespace Senai.InLock.WebApi.Controllers
             return Ok();
         }
 
-        //Busca um jogo na lista
+        /// <summary>
+        /// Busca um Jogo por Id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>Jogo</returns>
+        [Authorize(Roles = "ADMINISTRADOR")]
         [HttpGet("{id}")]
         public IActionResult BuscarPorId(int id)
         {
             return Ok(jogoRepository.BuscarPorId(id));
         }
 
-        //Atualiza um jogo da lista
+        /// <summary>
+        /// Atualiza Jogo na Lista
+        /// </summary>
+        /// <param name="jogo"></param>
+        /// <param name="id"></param>
+        [Authorize(Roles = "ADMINISTRADOR")]
         [HttpPut("{id}")]
         public IActionResult Atualizar(Jogos jogo, int id)
         {
@@ -48,7 +66,11 @@ namespace Senai.InLock.WebApi.Controllers
             return Ok();
         }
 
-        //Deleta um jogo da lista
+        /// <summary>
+        /// Deleta Jogo na Lista
+        /// </summary>
+        /// <param name="id"></param>
+        [Authorize(Roles = "ADMINISTRADOR")]
         [HttpDelete("{id}")]
         public IActionResult Deletar (int id)
         {

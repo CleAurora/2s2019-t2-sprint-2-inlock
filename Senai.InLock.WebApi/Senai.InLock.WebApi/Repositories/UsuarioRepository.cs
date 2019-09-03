@@ -5,6 +5,9 @@ using System.Linq;
 
 namespace Senai.InLock.WebApi.Repositories
 {
+    /// <summary>
+    /// Busca Usuário por e-mail e senha - A ser chamado no login do Usuário
+    /// </summary>
     public class UsuarioRepository
     {
         public Usuarios BuscarPorEmailESenha(LoginViewModel login)
@@ -21,6 +24,10 @@ namespace Senai.InLock.WebApi.Repositories
         }
 
 
+        /// <summary>
+        /// Lista Usuários
+        /// </summary>
+        /// <returns>Listar</returns>
         public List<Usuarios> Listar()
         {
             using (InLockContext context = new InLockContext())
@@ -28,8 +35,12 @@ namespace Senai.InLock.WebApi.Repositories
                 return context.Usuarios.ToList();
 
             }
-        } // Lista os usuários
+        }
 
+        /// <summary>
+        /// Cadastra Novo Usuário
+        /// </summary>
+        /// <param name="usuario"></param>
         public void Cadastrar(Usuarios usuario)
         {
             using (InLockContext context = new InLockContext())
@@ -37,7 +48,7 @@ namespace Senai.InLock.WebApi.Repositories
                 context.Usuarios.Add(usuario);
                 context.SaveChanges();
             }
-        } //Cadastra um novo usuário
+        } 
 
         public void Atualizar (Usuarios usuario, int id)
         {
@@ -50,8 +61,12 @@ namespace Senai.InLock.WebApi.Repositories
                 context.Usuarios.Update(usuarioBuscado);
                 context.SaveChanges();
             }
-        } // Atualiza um usuário
+        }
 
+        /// <summary>
+        /// Deleta Usuário
+        /// </summary>
+        /// <param name="id"></param>
         public void Deletar(int id)
         {
             using (InLockContext context = new InLockContext())
@@ -60,8 +75,13 @@ namespace Senai.InLock.WebApi.Repositories
                 context.Usuarios.Remove(usuarioBuscado);
                 context.SaveChanges();
             }
-        } // Deleta um usuário da lista
+        }
 
+        /// <summary>
+        /// Busca Usuário
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public Usuarios BuscarPorId(int id)
         {
             using (InLockContext context = new InLockContext())
