@@ -29,8 +29,8 @@ namespace Senai.InLock.WebApi.Controllers
             try
             {
 
-                EstudioRepository.Listar();
-                return Ok();
+                return Ok(EstudioRepository.Listar());
+                
             }
             catch (Exception ex)
             {
@@ -51,10 +51,11 @@ namespace Senai.InLock.WebApi.Controllers
             try
             {
                 // pega o id do token
-                int usuarioId = Convert.ToInt32(User.Claims.FirstOrDefault(claim => claim.Type == JwtRegisteredClaimNames.Jti)); 
+                
                 // id que voce pega do token
                 estudio.DataCriacao = DateTime.Now;
-                estudio.UsuarioId = usuarioId;
+                estudio.UsuarioId = Convert.ToInt32(User.Claims.FirstOrDefault(claim => claim.Type == JwtRegisteredClaimNames.Jti).Value);
+               
                 EstudioRepository.Cadastrar(estudio);
                 return Ok();
             }
@@ -76,8 +77,8 @@ namespace Senai.InLock.WebApi.Controllers
             try
             {
 
-                EstudioRepository.BuscarPorId(id);
-                return Ok();
+                return Ok(EstudioRepository.BuscarPorId(id));
+                
             }
             catch (Exception ex)
             {

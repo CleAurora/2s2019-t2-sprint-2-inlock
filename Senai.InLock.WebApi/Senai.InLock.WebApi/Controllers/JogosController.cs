@@ -28,8 +28,8 @@ namespace Senai.InLock.WebApi.Controllers
             try
             {
 
-                jogoRepository.Listar();
-                return Ok();
+                return Ok(jogoRepository.Listar());
+                
             }
             catch (Exception ex)
             {
@@ -70,8 +70,8 @@ namespace Senai.InLock.WebApi.Controllers
             try
             {
 
-                jogoRepository.BuscarPorId(id);
-                return Ok();
+                return Ok(jogoRepository.BuscarPorId(id));
+                
             }
             catch (Exception ex)
             {
